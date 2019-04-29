@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<ul>
+</ul>
+
+<table>
+    <tr>
+        <td>ID</td>
+        <td>NAME</td>
+        <td>STATUS</td>
+        <td>ACTION</td>
+    </tr>
+    <tr th:each="item,stat : ${items}">
+        <form action="#" th:action="@{/items/{id}(id=${item.id})}" method="post">
+            <td>
+                <span th:text="${stat.index + 1}"></span>
+            </td>
+            <td>
+                <span th:text="${item.name}"></span>
+            </td>
+            <td>
+                <select name="status">
+                    <option th:each="stat :  ${T(com.gmail.zagurskaya.repository.model.ItemStatusEnum).values()}"
+                            th:value="${stat}" th:text="${stat}"
+                            th:selected="${stat.name() == item.status}"></option>
+                </select>
+            </td>
+            <td>
+                <button type="submit">Update status</button>
+            </td>
+        </form>
+    </tr>
+</table>
+</body>
+</html>
